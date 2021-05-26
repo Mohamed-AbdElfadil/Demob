@@ -1,0 +1,58 @@
+﻿@page "/"
+@inject CourseService coursesrvices
+
+@*<h1>Hello, world!</h1>
+
+    Welcome to your new app.
+
+    <SurveyPrompt Title="How is Blazor working for you?" />*@
+
+<div class="container">
+    @if(! string.IsNullOrWhiteSpace(msg))
+    {
+    <div class="alert alert-success" role="alert">
+        @msg
+    </div>
+
+    }
+    <div class="row">
+
+        @foreach (var course in ListCourses)
+        {
+            <div class="col-sm-4 p-2">
+                <CourseItem Id="@course.CourseID" 
+                            Name="@course.Name" 
+                            Imgurl="@course.Imgurl" 
+                            Desc="@course.Desc" Price="@course.Price"
+                            Onaddedtocart="WriteMessage">
+                            
+
+                </CourseItem>
+            </div>
+        }
+    </div>
+
+
+</div>
+
+
+
+@code{
+    public List<Course> ListCourses = new List<Course>();
+    string msg = null;
+    protected override void OnInitialized()
+    {
+        ListCourses = coursesrvices.GetCourses();
+        base.OnInitialized();
+
+    }
+
+    void WriteMessage(string courseName)
+    {
+        msg = "thank you for adding "+ courseName+ " course";
+    }
+
+    
+
+
+}

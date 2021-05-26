@@ -1,0 +1,34 @@
+﻿
+
+    <div class="card" >
+        <img src="@Imgurl" height="200" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"> <a href="/course/@Id">@Name</a></h5>
+            <p class="card-text">@Desc</p>
+            <p class="text-secondary text-center h2 font-weight-bold">@Price.ToString(formatcurency)</p>
+            <a href="#" @onclick="async()=>await Onaddedtocart.InvokeAsync(Name)" @onclick:stopPropagation @onclick:preventDefault class="btn btn-primary">Add To Cart</a>
+        </div>
+    </div>
+    
+
+    @code {
+
+        [Parameter]
+        public int Id { get; set; }
+        [Parameter]
+        public string Name { get; set; }
+        [Parameter]
+        public decimal Price { get; set; }
+        [Parameter]
+        public String Desc { get; set; }
+        [Parameter]
+        public string Imgurl { get; set; }
+
+        [CascadingParameter]
+        public string formatcurency { get; set; }
+
+        [Parameter]
+        public EventCallback<string> Onaddedtocart { get; set; }
+
+
+    }
